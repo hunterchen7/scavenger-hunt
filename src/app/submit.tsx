@@ -108,7 +108,7 @@ const Submit = (props: any) => {
 
     return (
         <div>
-            <input type="file" onChange={handleImageChange}/>
+            <input type="file" onChange={handleImageChange} className="max-w-[50%]"/>
             <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={handleSubmit}>Submit</button>
         </div>
     );
