@@ -15,7 +15,6 @@ HackWestern 11 kickoff event scavenger hunt
 - a silver car parked next to a red car
 - an oval-shaped roundabout
 - a goose having a good time
-- a goose not having a good time
 - an intersection with a 3-way stop
 - a street name with an ASCII sum that is prime
 - a piece of garbage that you found (and a picture of a team member throwing it away)
@@ -27,3 +26,5 @@ HackWestern 11 kickoff event scavenger hunt
 - a shopping cart trolley far from home
 - a street name with an ASCII sum that is a perfect cube
 - a convoluted parking sign
+- a rope
+- something resembling the letter 'y' but is not the letter 'y'
