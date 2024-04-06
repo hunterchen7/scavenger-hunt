@@ -80,7 +80,7 @@ export default function Home() {
                     <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => setUpdatingTeamName(true)}>Edit Team Name</button>
                     </div>
                     : 
-                    <div>
+                    <div key={team.id}>
                       <input className="text-black" onChange={(e) => setTeamName(e.target.value)} />
                       <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => {
                         setUpdatingTeamName(false);
