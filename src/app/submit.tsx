@@ -30,6 +30,7 @@ const Submit = (props: any) => {
     const { itemId, teamId, setRefetchSubmissions, itemScore } = props;
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [ipfsHash, setIpfsHash] = useState("");
+    const [isUploading, setIsUploading] = useState(false);
     
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -78,6 +79,7 @@ const Submit = (props: any) => {
 
     useEffect(() => {
         if (ipfsHash) {
+            setIsUploading(true);
             const url = process.env.NEXT_PUBLIC_IPFS_GATEWAY + ipfsHash;
             console.log("ipfs url: ", url);
             axiosSubmit.post("/", {
@@ -110,6 +112,11 @@ const Submit = (props: any) => {
         <div>
             <input type="file" onChange={handleImageChange} className="max-w-[50%]"/>
             <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={handleSubmit}>Submit</button>
+            {isUploading && 
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 text-white text-2xl backdrop-blur-md">
+                    Uploading... Please wait...
+                </div>
+            }
         </div>
     );
 }
