@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-5 gap-3">
-      <div className="relative flex place-items-center bg-goose-spin bg-repeat bg-contain z-[-1] h-20 text-black py-10 px-5">
+      <div className="relative flex place-items-center bg-goose-spin bg-repeat bg-contain z-[-1] h-20 text-purple-700 font-black py-10 px-5">
         Welcome to the HackWestern 11 Kickoff Scavenger Hunt! 🎉
       </div>
       <div>
