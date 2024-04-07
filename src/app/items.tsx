@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Submit from "./submit";
+import Image from "next/image";
+import { blurData } from "../../public/imgPlaceholder";
 
 const axiosInstanceItem = axios.create({
     baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/items",
@@ -74,10 +76,17 @@ const Items = (props: any) => {
                     {items.sort((a, b) => a.id - b.id).map((item) => (
                         <li className="bg-purple-900 m-2 p-2 rounded" key={item.id}>
                             {item.id + ". " + item.item + " (" + item.points + " point" + (item.points === 1 ? "" : "s") + ")"}
-                            {submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId) != null ? 
-                                <div>
-                                    <img src={submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId).image_url}></img>
-                                </div>
+                            {submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId) != null ?
+                                <Image
+                                    src={submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId).image_url}
+                                    alt="selected"
+                                    placeholder="blur"
+                                    blurDataURL={blurData}
+                                    width={0}
+                                    height={0}
+                                    sizes="100vh"
+                                    style={{ width: '100%', height: 'auto' }}
+                                />
                             : 
                                 <div>
                                     choose file to submit

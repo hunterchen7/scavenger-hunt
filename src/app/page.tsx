@@ -39,22 +39,20 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-5 gap-3">
-      <div className="relative flex place-items-center bg-goose-spin bg-repeat bg-contain z-[-1] h-20 text-purple-700 font-black py-10 px-5">
+    <main className="flex min-h-screen flex-col items-center px-3 pb-5 gap-3">
+      <div className="relative flex place-items-center bg-goose-spin bg-repeat bg-contain z-[-1] min-h-20 text-purple-700 font-black py-10 px-5 text-xl">
         Welcome to the HackWestern 11 Kickoff Scavenger Hunt! 🎉
       </div>
-      <ul>
+      <ul className="list-disc mx-3">
         Rules:
-        <li key="1">- Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
-        <li key="2">- The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2</li>
-        <li key="3">- Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted</li>
-        <li key="4">- A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
-        <li key="5">- A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
+        <li>Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
+        <li>The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2</li>
+        <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted</li>
+        <li>A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
+        <li>Take a picture of the street sign as proof you found the street </li>
+        <li>A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
       </ul>
-      <div>
-        Leaderboard
-        <Team />
-       </div>
+      <Team />
       <div>
         {teamId ? 
           <div>

@@ -45,13 +45,14 @@ const Team = () => {
     }, []);
 
     return (
-        <div>
+        <div className="text-center bg-purple-600 px-6 py-1.5 rounded">
+            <h3 className="text-xl font-bold">Leaderboard</h3>
             {loading ? <div>Loading...</div> : (
-            <ul>
-                <li>1. 🥇 Team {teams[0].name} | {teams[0].score} points</li>
-                <li>2. 🥈 Team {teams[1].name} | {teams[1].score} points</li>
-                <li>3. 🥉 Team {teams[2].name} | {teams[2].score} points</li>
-                <li>4. 🎖️ Team {teams[3].name} | {teams[3].score} points</li>
+            <ul className="list-decimal text-left">
+                <li>🥇 {teams[0].score} points | Team <b>{teams[0].name}</b></li>
+                <li>🥈 {teams[1].score} points | Team <b>{teams[1].name}</b></li>
+                <li>🥉 {teams[2].score} points | Team <b>{teams[2].name}</b></li>
+                <li>🤡 {teams[3].score} points | Team <b>{teams[3].name}</b></li>
             </ul>)}
         </div>
     );
