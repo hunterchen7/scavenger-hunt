@@ -45,11 +45,11 @@ export default function Home() {
       </div>
       <ul>
         Rules:
-        <li>- Find items on the list, take and upload a picture</li>
-        <li>- Each item is worth a certain number of points</li>
-        <li>- The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2.</li>
-        <li>- A street name refers to their lower case individual name, e.g. the name of "Gainsborough Rd" refers to "gainsborough"</li>
-        <li>- A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
+        <li key="1">- Find items on the list, take and upload a picture</li>
+        <li key="2">- Each item is worth a certain number of points</li>
+        <li key="3">- The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2.</li>
+        <li key="4">- A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
+        <li key="5">- A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
       </ul>
       <div>
         Leaderboard
