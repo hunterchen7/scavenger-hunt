@@ -47,7 +47,7 @@ export default function Home() {
         Rules:
         <li key="1">- Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
         <li key="2">- The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2</li>
-        <li key="3">- Only 1 image can be submitted per item, and once an image is submitted, it can't be deleted</li>
+        <li key="3">- Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted</li>
         <li key="4">- A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
         <li key="5">- A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
       </ul>
