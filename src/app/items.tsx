@@ -74,8 +74,8 @@ const Items = (props: any) => {
             {itemsLoading || submissionsLoading ? <div>Loading...</div> : (
                 <ul>
                     {items.sort((a, b) => a.id - b.id).map((item) => (
-                        <li className="bg-purple-900 m-2 p-2 rounded" key={item.id}>
-                            {item.id + ". " + item.item + " (" + item.points + " point" + (item.points === 1 ? "" : "s") + ")"}
+                        <li className="bg-purple-900 m-2 p-2 lg:p-3 rounded md:max-w-[50vw] lg:max-w-[40vw] xl:max-w-[30vw] 2xl:max-w-[25vw] 3xl:max-w-[20vw]" key={item.id}>
+                            <div className="lg:mb-3">{item.id + ". " + item.item + " (" + item.points + " point" + (item.points === 1 ? "" : "s") + ")"}</div>
                             {submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId) != null ?
                                 <Image
                                     src={submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId).image_url}

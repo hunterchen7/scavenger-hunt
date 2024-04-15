@@ -46,8 +46,7 @@ export default function Home() {
       <ul className="list-disc mx-3">
         Rules:
         <li>Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
-        <li>The 1st place win 8 points, 2nd place 6, 3rd place 4 and 4th place 2</li>
-        <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted</li>
+        <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted. &#40;but if you must, message me on Slack&#41;</li>
         <li>A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
         <li>Take a picture of the street sign as proof you found the street </li>
         <li>A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
