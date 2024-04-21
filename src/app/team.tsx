@@ -1,13 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import create from "./axiosInstance";
 
-const axiosTeams = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/teams",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
+const axiosTeams = create("teams");
 
 export const getTeams = async () => {
     try {
@@ -31,17 +25,27 @@ const Team = () => {
     const [teams, setTeams] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    const getAndUpdateTeams = () => {
         getTeams().then((data) => {
-            console.log("teams before sorting: ", data);
-  
+            // console.log("teams before sorting: ", data);
+
             // Sort the teams by points in descending order
             const sortedTeams = data.teams.sort((a: any, b: any) => b.score - a.score);
             
-            console.log("teams after sorting: ", sortedTeams);
+            // console.log("teams after sorting: ", sortedTeams);
             setTeams(sortedTeams);
             setLoading(false);
         });
+    }
+
+    useEffect(() => {
+        getAndUpdateTeams();
+
+        const intervalId = setInterval(() => {
+            getAndUpdateTeams();
+        }, 5000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     return (

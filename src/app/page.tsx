@@ -1,17 +1,11 @@
 "use client";
 
-import axios from "axios";
+import create from "./axiosInstance";
 import { useEffect, useState } from "react";
 import Items from "./items";
 import Team, { getTeams } from "./team";
 
-const axiosUpdateName = axios.create({
-  baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/update-name-by-pk",
-  headers: {
-    "content-type": "application/json",
-    "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET,
-  },
-});
+const axiosUpdateName = create("update-name-by-pk");
 
 export default function Home() {
   const validTeamIds = [857, 103, 716, 687];
@@ -33,6 +27,20 @@ export default function Home() {
       setTeams(data.teams);
     });
   }, []);
+
+  useEffect(() => {
+    setTeamName(teams.filter((team) => team.id == teamId).map((team) => team.name)[0] || "");
+    setIsUpdatingTeamName(false);
+
+    const intervalId = setInterval(() => {
+      getTeams().then((data) => {
+        console.log("refetched teams: ", data);
+        setTeams(data.teams);
+      });
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [teams]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -80,23 +88,31 @@ export default function Home() {
           <div>
             {teams.length > 0 ?
                 teams.filter((team) => team.id == teamId).map((team) => (
-                  !updatingTeamName ? <div key={team.id}>
-                    Team {team.name} | {team.members.map((member: any) => member).join(", ")} | {team.score} points
-                    <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => setUpdatingTeamName(true)}>Edit Team Name</button>
+                  !updatingTeamName ? 
+                    <div key={team.id} className="text-center space-y-2">
+                      <div>Team {team.name} | {team.score} points</div>
+                      <div>Members: {team.members.map((member: any) => member).join(", ")}</div>
+                      <button
+                        className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5"
+                        onClick={() => setUpdatingTeamName(true)}
+                      >Edit Team Name</button>
                     </div>
                     : 
-                    <div key={team.id}>
-                      <input className="text-black" onChange={(e) => setTeamName(e.target.value)} />
+                    <div key={team.id} className="text-center">
+                      <input className="text-black pl-1" onChange={(e) => setTeamName(e.target.value)} placeholder="new team name" />
                       <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => {
                         setUpdatingTeamName(false);
                       }}>Cancel</button>
                       <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => {
                         setIsUpdatingTeamName(true);
+                        setUpdatingTeamName(false);
                         axiosUpdateName.post(`/${teamId}`, {object: {
                           name: teamName
                         }}).then(() => {
-                          setUpdatingTeamName(false);
-                          window.location.reload();
+                          getTeams().then((data) => {
+                            console.log("teams after updating name: ", data);
+                            setTeams(data.teams);
+                          });
                         });
                       }}>Save</button>
                     </div>

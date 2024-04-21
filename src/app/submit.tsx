@@ -2,30 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import FormData from "form-data";
 import Image from "next/image";
+import create from "./axiosInstance";
 
-const axiosSubmit = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/insert-submission",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
-
-const axiosUpdateScore = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/update-score",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
-
-const axiosFetchScore = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/teams",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
+const axiosSubmit = create("insert-submission");
+const axiosUpdateScore = create("update-score");
+const axiosFetchScore = create("teams");
 
 const Submit = (props: any) => {
     const { itemId, teamId, setRefetchSubmissions, itemScore } = props;
@@ -91,6 +72,7 @@ const Submit = (props: any) => {
             }
             }).then((res: any) => {
                 console.log(res);
+                setIsUploading(false);
                 setIpfsHash(res.data.IpfsHash);
             });
         } catch (error) {
@@ -104,6 +86,8 @@ const Submit = (props: any) => {
         if (ipfsHash) {
             const url = process.env.NEXT_PUBLIC_IPFS_GATEWAY + ipfsHash;
             console.log("ipfs url: ", url);
+
+            // Insert submission into db
             axiosSubmit.post("/", {
                 object: {
                     image_url: url,
@@ -116,6 +100,8 @@ const Submit = (props: any) => {
             }).catch((error) => {
                 console.error(error);
             });
+
+            // Update team score
             axiosFetchScore.get(`/${teamId}`).then((teamRes) => {
                 console.log('team res: ', teamRes.data.teams_by_pk);
                 const currScore = teamRes.data.teams_by_pk.score;
@@ -125,7 +111,7 @@ const Submit = (props: any) => {
                     object: {
                         score: currScore + itemScore
                     }
-                }).then(() => window.location.reload());
+                });
             });
         }
     }, [ipfsHash]);
@@ -145,7 +131,7 @@ const Submit = (props: any) => {
                 />
             }
             {selectedImage && <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={handleSubmit}>Submit</button>}
-            {isUploading && 
+            {isUploading &&
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 text-white text-2xl backdrop-blur-md">
                     Uploading... Please wait...
                 </div>
