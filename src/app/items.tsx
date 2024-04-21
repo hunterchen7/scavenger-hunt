@@ -1,16 +1,11 @@
-import axios from "axios";
+import create from "./axiosInstance";
 import React, { useEffect, useState } from "react";
 import Submit from "./submit";
 import Image from "next/image";
 import { blurData } from "../../public/imgPlaceholder";
 
-const axiosInstanceItem = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/items",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
+const axiosInstanceItem = create("items");
+const axiosSubmissions = create("submissions");
 
 const getItems = async () => {
     try {
@@ -20,14 +15,6 @@ const getItems = async () => {
         console.error(error);
     }
 }
-
-const axiosSubmissions = axios.create({
-    baseURL: "https://hw11-scavenger-hunt.hasura.app/api/rest/submissions",
-    headers: {
-        "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET
-    }
-});
 
 const getSubmissions = async () => {
     try {
@@ -46,7 +33,7 @@ const Items = (props: any) => {
     const [submissionsLoading, setSubmissionsLoading] = useState(true);
     const [refetchSubmissions, setRefetchSubmissions] = useState(false);
 
-    useEffect(() => {
+    const getAndUpdateItemsAndSubmissions = () => {
         getItems().then((data) => {
             console.log("items: ", data);
             setItems(data.items);
@@ -57,15 +44,22 @@ const Items = (props: any) => {
             setSubmissions(data.submissions);
             setSubmissionsLoading(false);
         });
+    }
+
+    useEffect(() => {
+        setRefetchSubmissions(true);
+
+        const intervalId = setInterval(() => {
+            setRefetchSubmissions(true);
+        }, 5000);
+        
+        return () => clearInterval(intervalId);
     }, []);
 
     useEffect(() => {
         if (refetchSubmissions) {
-            getSubmissions().then((data) => {
-                console.log("submissions: ", data);
-                setSubmissions(data.submissions);
-                setSubmissionsLoading(false);
-            });
+            getAndUpdateItemsAndSubmissions();
+            setRefetchSubmissions(false);
         }
     }, [refetchSubmissions]);
 
@@ -82,8 +76,8 @@ const Items = (props: any) => {
                                     alt="selected"
                                     placeholder="blur"
                                     blurDataURL={blurData}
-                                    width={0}
-                                    height={0}
+                                    width={600}
+                                    height={600}
                                     sizes="100vh"
                                     style={{ width: '100%', height: 'auto' }}
                                 />
