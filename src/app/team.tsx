@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import create from "./axiosInstance";
+import create, { getResponse } from "./axiosInstance";
 
 const axiosTeams = create("teams");
 
-export const getTeams = async () => {
-    try {
-        const response = await axiosTeams.get("/");
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-};
+export const getTeams = async () => getResponse(axiosTeams);
 
 export const getTeam = async (teamId: string) => {
     try {
@@ -21,8 +14,15 @@ export const getTeam = async (teamId: string) => {
     }
 }
 
+type team = {
+    id: number;
+    name: string;
+    members: string[];
+    score: number;
+}
+
 const Team = () => {
-    const [teams, setTeams] = useState<any[]>([]);
+    const [teams, setTeams] = useState<team[]>([]);
     const [loading, setLoading] = useState(true);
 
     const getAndUpdateTeams = () => {
@@ -30,7 +30,7 @@ const Team = () => {
             // console.log("teams before sorting: ", data);
 
             // Sort the teams by points in descending order
-            const sortedTeams = data.teams.sort((a: any, b: any) => b.score - a.score);
+            const sortedTeams = data.teams.sort((a: team, b: team) => b.score - a.score);
             
             // console.log("teams after sorting: ", sortedTeams);
             setTeams(sortedTeams);

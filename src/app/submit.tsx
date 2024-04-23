@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import FormData from "form-data";
 import Image from "next/image";
@@ -8,7 +8,12 @@ const axiosSubmit = create("insert-submission");
 const axiosUpdateScore = create("update-score");
 const axiosFetchScore = create("teams");
 
-const Submit = (props: any) => {
+const Submit = (props: {
+    itemId: number,
+    teamId: number | string,
+    setRefetchSubmissions: (value: boolean) => void,
+    itemScore: number
+}) => {
     const { itemId, teamId, setRefetchSubmissions, itemScore } = props;
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [ipfsHash, setIpfsHash] = useState("");
@@ -22,7 +27,7 @@ const Submit = (props: any) => {
         }        
     };
 
-    const compressImage = (image: any) => {
+    const compressImage = (image: File) => {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
         const imageElement = document.createElement("img");
@@ -41,8 +46,7 @@ const Submit = (props: any) => {
         }
     }
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         if (!selectedImage) {
             return;
         }
@@ -70,7 +74,7 @@ const Submit = (props: any) => {
             headers: {
                 'Authorization': `Bearer ${process.env.NEXT_PUBLIC_PINATA}`
             }
-            }).then((res: any) => {
+            }).then((res: AxiosResponse) => {
                 console.log(res);
                 setIsUploading(false);
                 setIpfsHash(res.data.IpfsHash);

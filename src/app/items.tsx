@@ -1,4 +1,4 @@
-import create from "./axiosInstance";
+import create, { getResponse } from "./axiosInstance";
 import React, { useEffect, useState } from "react";
 import Submit from "./submit";
 import Image from "next/image";
@@ -7,25 +7,10 @@ import { blurData } from "../../public/imgPlaceholder";
 const axiosInstanceItem = create("items");
 const axiosSubmissions = create("submissions");
 
-const getItems = async () => {
-    try {
-        const response = await axiosInstanceItem.get("/");
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-}
+const getItems = async () => getResponse(axiosInstanceItem);
+const getSubmissions = async () => getResponse(axiosSubmissions);
 
-const getSubmissions = async () => {
-    try {
-        const response = await axiosSubmissions.get("/");
-        return response.data;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-const Items = (props: any) => {
+const Items = (props: {teamId: number | string}) => {
     const { teamId } = props;
     const [items, setItems] = useState<any[]>([]);
     const [submissions, setSubmissions] = useState<any[]>([]);
@@ -33,6 +18,7 @@ const Items = (props: any) => {
     const [submissionsLoading, setSubmissionsLoading] = useState(true);
     const [refetchSubmissions, setRefetchSubmissions] = useState(false);
 
+    // fetch items and submissions
     const getAndUpdateItemsAndSubmissions = () => {
         getItems().then((data) => {
             console.log("items: ", data);
@@ -46,6 +32,7 @@ const Items = (props: any) => {
         });
     }
 
+    // set flag to refetch submissions every 5 seconds
     useEffect(() => {
         setRefetchSubmissions(true);
 
@@ -56,6 +43,7 @@ const Items = (props: any) => {
         return () => clearInterval(intervalId);
     }, []);
 
+    // fetch items and submissions when refetchSubmissions becomes true
     useEffect(() => {
         if (refetchSubmissions) {
             getAndUpdateItemsAndSubmissions();

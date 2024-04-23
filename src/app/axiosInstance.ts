@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { type AxiosInstance } from "axios"
 
 const create = (name: string) => {
     return axios.create({
@@ -10,4 +10,14 @@ const create = (name: string) => {
     })
 }
 
+const getResponse = async (axiosInstance: AxiosInstance) => {
+    try {
+        const response = await axiosInstance.get("/");
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export default create;
+export { getResponse };

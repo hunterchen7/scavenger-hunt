@@ -91,7 +91,7 @@ export default function Home() {
                   !updatingTeamName ? 
                     <div key={team.id} className="text-center space-y-2">
                       <div>Team {team.name} | {team.score} points</div>
-                      <div>Members: {team.members.map((member: any) => member).join(", ")}</div>
+                      <div>Members: {team.members.map((member: string) => member).join(", ")}</div>
                       <button
                         className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5"
                         onClick={() => setUpdatingTeamName(true)}
