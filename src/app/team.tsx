@@ -15,7 +15,7 @@ export const getTeam = async (teamId: string) => {
 }
 
 type team = {
-    id: number;
+    id: number | string;
     name: string;
     members: string[];
     score: number;
@@ -27,17 +27,14 @@ const Team = () => {
 
     const getAndUpdateTeams = () => {
         getTeams().then((data) => {
-            // console.log("teams before sorting: ", data);
-
-            // Sort the teams by points in descending order
+            // Sort the teams by points in descending order for leaderboard
             const sortedTeams = data.teams.sort((a: team, b: team) => b.score - a.score);
-            
-            // console.log("teams after sorting: ", sortedTeams);
             setTeams(sortedTeams);
             setLoading(false);
         });
     }
 
+    // refetch teams every 5 seconds, mostly to update scores but also names
     useEffect(() => {
         getAndUpdateTeams();
 
@@ -63,3 +60,4 @@ const Team = () => {
 };
 
 export default Team;
+export { type team };

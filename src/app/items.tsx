@@ -10,10 +10,23 @@ const axiosSubmissions = create("submissions");
 const getItems = async () => getResponse(axiosInstanceItem);
 const getSubmissions = async () => getResponse(axiosSubmissions);
 
+type item = {
+    id: number;
+    item: string;
+    points: number;
+}
+
+type submission = {
+    team_id: number;
+    item_id: number;
+    image_url: string;
+    time_submitted: string;
+}
+
 const Items = (props: {teamId: number | string}) => {
     const { teamId } = props;
-    const [items, setItems] = useState<any[]>([]);
-    const [submissions, setSubmissions] = useState<any[]>([]);
+    const [items, setItems] = useState<item[]>([]);
+    const [submissions, setSubmissions] = useState<submission[]>([]);
     const [itemsLoading, setItemsLoading] = useState(true);
     const [submissionsLoading, setSubmissionsLoading] = useState(true);
     const [refetchSubmissions, setRefetchSubmissions] = useState(false);
@@ -60,7 +73,7 @@ const Items = (props: {teamId: number | string}) => {
                             <div className="lg:mb-3">{item.id + ". " + item.item + " (" + item.points + " point" + (item.points === 1 ? "" : "s") + ")"}</div>
                             {submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId) != null ?
                                 <Image
-                                    src={submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId).image_url}
+                                    src={submissions.find((submission) => submission.item_id == item.id && submission.team_id == teamId)?.image_url as string}
                                     alt="selected"
                                     placeholder="blur"
                                     blurDataURL={blurData}

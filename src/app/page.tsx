@@ -3,7 +3,7 @@
 import create from "./axiosInstance";
 import { useEffect, useState } from "react";
 import Items from "./items";
-import Team, { getTeams } from "./team";
+import Team, { getTeams, team } from "./team";
 
 const axiosUpdateName = create("update-name-by-pk");
 
@@ -11,10 +11,10 @@ export default function Home() {
   const validTeamIds = [857, 103, 716, 687];
   const [teamId, setTeamId] = useState("");
   const [inputValue, setInputValue] = useState("");
-  const [teams, setTeams] = useState<any[]>([]);
-  const [updatingTeamName, setUpdatingTeamName] = useState(false);
+  const [teams, setTeams] = useState<team[]>([]);
+  const [updatingTeamName, setUpdatingTeamName] = useState(false); // for input field
   const [teamName, setTeamName] = useState("");
-  const [isUpdatingTeamName, setIsUpdatingTeamName] = useState(false);
+  const [isUpdatingTeamName, setIsUpdatingTeamName] = useState(false); // for db updating & loading screen
 
   // check local storage for team id
   useEffect(() => {
