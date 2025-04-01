@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "HackWestern 11 Scavenger Hunt 🪿",
-  description: "HackWestern 11 Kickoff Scavenger Hunt 🪿",
+  title: "Hac kWestern 12 Scavenger Hunt 🐎",
+  description: "Hack Western 12 Kickoff Scavenger Hunt 🐎",
 };
 
 export default function RootLayout({
