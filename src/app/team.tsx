@@ -53,7 +53,8 @@ const Team = () => {
                 <li>🥇 {teams[0].score} points | Team <b>{teams[0].name}</b></li>
                 <li>🥈 {teams[1].score} points | Team <b>{teams[1].name}</b></li>
                 <li>🥉 {teams[2].score} points | Team <b>{teams[2].name}</b></li>
-                <li>🤡 {teams[3].score} points | Team <b>{teams[3].name}</b></li>
+                <li>😣 {teams[3].score} points | Team <b>{teams[3].name}</b></li>
+                <li>😖 {teams[4].score} points | Team <b>{teams[4].name}</b></li>
             </ul>)}
         </div>
     );
