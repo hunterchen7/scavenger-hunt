@@ -23,7 +23,7 @@ type submission = {
     time_submitted: string;
 }
 
-const Items = (props: {teamId: number | string}) => {
+const Items = (props: { teamId: number | string }) => {
     const { teamId } = props;
     const [items, setItems] = useState<item[]>([]);
     const [submissions, setSubmissions] = useState<submission[]>([]);
@@ -54,7 +54,7 @@ const Items = (props: {teamId: number | string}) => {
         const intervalId = setInterval(() => {
             setRefetchSubmissions(true);
         }, 5000);
-        
+
         return () => clearInterval(intervalId);
     }, []);
 
@@ -84,7 +84,7 @@ const Items = (props: {teamId: number | string}) => {
                                     sizes="100vh"
                                     style={{ width: '100%', height: 'auto' }}
                                 />
-                            : 
+                                :
                                 <div>
                                     choose file to submit
                                     <Submit itemId={item.id} teamId={teamId} setRefetchSubmissions={setRefetchSubmissions} itemScore={item.points} />
