@@ -1,5 +1,5 @@
 # scavenger-hunt
-HackWestern 11 kickoff event scavenger hunt
+Hack Western 12 kickoff event scavenger hunt
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hac kWestern 12 Scavenger Hunt 🐎",
+  title: "Hack Western 12 Scavenger Hunt 🐎",
   description: "Hack Western 12 Kickoff Scavenger Hunt 🐎",
 };
 

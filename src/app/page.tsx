@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center px-3 pb-5 gap-3">
       <div className="relative flex place-items-center bg-goose-spin bg-repeat bg-contain z-[-1] min-h-20 text-purple-700 font-black py-10 px-5 text-xl">
-        Welcome to the HackWestern 11 Kickoff Scavenger Hunt! 🎉
+        Welcome to the Hack Western 12 Kickoff Scavenger Hunt! 🎉
       </div>
       <ul className="list-disc mx-3">
         Rules:
