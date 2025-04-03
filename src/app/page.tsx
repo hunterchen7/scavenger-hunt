@@ -8,7 +8,7 @@ import Team, { getTeams, team } from "./team";
 const axiosUpdateName = create("update-name-by-pk");
 
 export default function Home() {
-  const validTeamIds = [857, 103, 716, 687];
+  const validTeamIds = [7687, 6215, 9277, 1023, 4136];
   const [teamId, setTeamId] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [teams, setTeams] = useState<team[]>([]);
