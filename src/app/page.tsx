@@ -8,7 +8,7 @@ import Team, { getTeams, team } from "./team";
 const axiosUpdateName = create("update-name-by-pk");
 
 export default function Home() {
-  const validTeamIds = [857, 103, 716, 687];
+  const validTeamIds = [7687, 6215, 9277, 1023];
   const [teamId, setTeamId] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [teams, setTeams] = useState<team[]>([]);
@@ -40,7 +40,7 @@ export default function Home() {
     }, 5000);
 
     return () => clearInterval(intervalId);
-  }, [teams]);
+  }, [teamId, teams]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -55,9 +55,6 @@ export default function Home() {
         Rules:
         <li>Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
         <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted. &#40;but if you must, message me on Slack&#41;</li>
-        <li>A street name refers to their lower case individual name, e.g. the name of &#34;Gainsborough Rd&#34; refers to &#34;gainsborough&#34;</li>
-        <li>Take a picture of the street sign as proof you found the street </li>
-        <li>A helpful tool: <a className="text-blue-500 hover:text-blue-700" href="https://opendsa-server.cs.vt.edu/embed/StringSimple" target="_blank" rel="noreferrer noopener">ASCII sum calculator</a></li>
       </ul>
       <Team />
       <div>
