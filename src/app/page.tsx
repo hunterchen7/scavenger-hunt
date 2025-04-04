@@ -54,23 +54,24 @@ export default function Home() {
       <ul className="list-disc mx-3">
         Rules:
         <li>Find items on the list, take and upload a picture to get points for it, each item is worth a certain number of points</li>
-        <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted. &#40;but if you must, message me on Slack&#41;</li>
+        <li>Pictures should have at least one of your teammates in it!</li>
+        <li>Only 1 image can be submitted per item, and once an image is submitted, it cannot be deleted. &#40;but if you must, message me on Discord&#41;</li>
       </ul>
       <Team />
       <div>
-        {teamId ? 
+        {teamId ?
           <div>
             Team ID: {teamId}
             <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => {
               setTeamId("");
               localStorage.removeItem("teamId");
             }}>Change Team</button>
-          </div> 
+          </div>
           :
-          <div>Enter your team ID: 
+          <div>Enter your team ID:
             <input onChange={handleInputChange} className="text-black ml-2 max-w-[25%]">
             </input>
-            <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => 
+            <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() =>
                 {
                   setTeamId(inputValue);
                   localStorage.setItem("teamId", inputValue);
@@ -85,7 +86,7 @@ export default function Home() {
           <div>
             {teams.length > 0 ?
                 teams.filter((team) => team.id == teamId).map((team) => (
-                  !updatingTeamName ? 
+                  !updatingTeamName ?
                     <div key={team.id} className="text-center space-y-2">
                       <div>Team {team.name} | {team.score} points</div>
                       <div>Members: {team.members.map((member: string) => member).join(", ")}</div>
@@ -94,7 +95,7 @@ export default function Home() {
                         onClick={() => setUpdatingTeamName(true)}
                       >Edit Team Name</button>
                     </div>
-                    : 
+                    :
                     <div key={team.id} className="text-center">
                       <input className="text-black pl-1" onChange={(e) => setTeamName(e.target.value)} placeholder="new team name" />
                       <button className="bg-white text-black rounded px-2.5 hover:bg-gray-200 ease-in-out duration-100 ml-2.5" onClick={() => {
@@ -113,7 +114,7 @@ export default function Home() {
                         });
                       }}>Save</button>
                     </div>
-    
+
                 )) : <div>Loading...</div>
             }
           </div>
@@ -122,7 +123,7 @@ export default function Home() {
           <Items teamId={teamId} />
         </div> : <div>Invalid Team ID</div>
       }
-      {isUpdatingTeamName && 
+      {isUpdatingTeamName &&
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 text-white text-2xl backdrop-blur-md">
               Updating... Please wait...
           </div>
